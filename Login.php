@@ -22,7 +22,7 @@ class Login extends BaseController
 		$usuarioModel = new UsuarioModel();
 
 		$dadosUsuario = $usuarioModel->getByEmail($email);
-		if (count($dadosUsuario) > 0) {
+		if (count($dadosUsuario) > 0) { // se o contador maior que 0 hashUsuario recebe os dados d dadosusurario
 			$hashUsuario = $dadosUsuario['senha'];
 			if (password_verify($password, $hashUsuario)) {
 				session()->set('isLoggedIn', true);
@@ -34,8 +34,7 @@ class Login extends BaseController
 				return redirect()->to('/login');
 			}
 		} else {
-			var_dump ($dadosUsuario);
-			die();
+			
 			session()->setFlashData('msg', 'Usuário ou Senha incorretos');
 			return redirect()->to('/login');
 		}
